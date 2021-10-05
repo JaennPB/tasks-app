@@ -7,8 +7,13 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { Provider } from "react-redux";
+
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MainScreen from "./screens/MainScreen";
+import AddListScreen from "./screens/AddListScreen";
+
+import store from "./store/store";
 
 import theme from "./theme/theme";
 
@@ -26,23 +31,30 @@ const App = () => {
   }
 
   return (
-    <View style={styles.backscreen}>
-      <StatusBar barStyle="light-content" backgroundColor={theme.primary} />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="WelcomeScreen"
-            component={WelcomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="MainScreen"
-            component={MainScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={styles.backscreen}>
+        <StatusBar barStyle="light-content" backgroundColor={theme.primary} />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="MainScreen"
+              component={MainScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AddListScreen"
+              component={AddListScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 };
 
