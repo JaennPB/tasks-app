@@ -18,7 +18,7 @@ const App = () => {
   let [fontsLoaded] = useFonts({
     customLight: require("./assets/fonts/Montserrat-Light.ttf"),
     customRegular: require("./assets/fonts/Montserrat-Regular.ttf"),
-    customMedium: require("./assets/fonts/Montserrat-Medium.ttf"),
+    customBold: require("./assets/fonts/Montserrat-Medium.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -46,11 +46,11 @@ const App = () => {
   );
 };
 
+export default App;
+
 const styles = StyleSheet.create({
   backscreen: {
     flex: 1,
     backgroundColor: theme.primary,
   },
 });
-
-export default App;
