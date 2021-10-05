@@ -4,3 +4,5 @@ const colors = {
   tertiary: '#B5179E',
   accent: '#F72585',
 };
+
+export default colors;
