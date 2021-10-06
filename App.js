@@ -49,7 +49,17 @@ const App = () => {
             <Stack.Screen
               name="AddListScreen"
               component={AddListScreen}
-              options={{ headerShown: false }}
+              options={{
+                headerTitle: "Create new list",
+                headerTitleStyle: {
+                  fontFamily: "customLight",
+                  color: "white",
+                },
+                headerStyle: {
+                  backgroundColor: theme.primaryLight,
+                },
+                headerTintColor: "white",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

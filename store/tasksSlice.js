@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  currentList: "mytasks", // will change
-  myTasks: {
-    uncompleted: [],
-    completed: [],
-  },
+  currentList: "My tasks", // will change
+  lists: [
+    {
+      name: "My tasks",
+      uncompleted: [],
+      completed: [],
+    },
+  ],
 };
 
 const tasksSlice = createSlice({
@@ -22,13 +25,15 @@ const tasksSlice = createSlice({
     completeTask: (state, action) => {},
     removeTask: (state, action) => {},
     addList: (state, action) => {
-      state = {
-        ...state,
-        [action.payload]: {
+      state.lists = [
+        ...state.lists,
+        {
+          name: action.payload,
           uncompleted: [],
           completed: [],
         },
-      };
+      ];
+
       state.currentList = action.payload;
     },
     switchList: (state, action) => {
@@ -37,7 +42,7 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { addTask, completeTask, removeTask, addList } =
+export const { addTask, completeTask, removeTask, addList, switchList } =
   tasksSlice.actions;
 
 export default tasksSlice.reducer;

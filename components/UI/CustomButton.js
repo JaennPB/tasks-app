@@ -3,9 +3,12 @@ import { StyleSheet, Pressable, View } from "react-native";
 
 import CustomText from "./CustomText";
 
+import { useSelector } from "react-redux";
+
 import theme from "../../theme/theme";
 
 const CustomButton = (props) => {
+  const currentList = useSelector((state) => state.tasks.currentList);
   const buttonStyles = (pressed) => {
     let updatedStyles = [styles.listButton];
 
@@ -19,7 +22,9 @@ const CustomButton = (props) => {
   return (
     <Pressable {...props} style={({ pressed }) => buttonStyles(pressed)}>
       <CustomText light>{props.title}</CustomText>
-      <View style={styles.accent}></View>
+      {!props.notAList && currentList === props.title ? (
+        <View style={styles.accent}></View>
+      ) : null}
     </Pressable>
   );
 };

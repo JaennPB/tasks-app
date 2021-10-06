@@ -3,6 +3,9 @@ import { StyleSheet, View, Image } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
+import { useSelector, useDispatch } from "react-redux";
+import { switchList } from "../store/tasksSlice";
+
 import moment from "moment";
 
 import CustomText from "./UI/CustomText";
@@ -11,10 +14,16 @@ import CustomButton from "./UI/CustomButton";
 import theme from "../theme/theme";
 
 const Dashboard = () => {
+  const lists = useSelector((state) => state.tasks.lists);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const addNewListHandler = () => {
     navigation.navigate("AddListScreen");
+  };
+
+  const openListHandler = (list) => {
+    dispatch(switchList(list));
   };
 
   return (
@@ -27,8 +36,14 @@ const Dashboard = () => {
         <CustomText regular>{moment().format("MMMM Do YYYY")}</CustomText>
       </View>
       <View style={styles.listButtonContainer}>
-        <CustomButton title="My tasks" />
-        <CustomButton title="Add list" onPress={addNewListHandler} />
+        {lists.map((list) => (
+          <CustomButton
+            title={list.name}
+            key={list.name}
+            onPress={() => openListHandler(list.name)}
+          />
+        ))}
+        <CustomButton title="Add list" notAList onPress={addNewListHandler} />
       </View>
     </View>
   );
