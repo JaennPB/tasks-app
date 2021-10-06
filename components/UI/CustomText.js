@@ -4,6 +4,8 @@ import { StyleSheet, Text } from "react-native";
 const CustomText = (props) => {
   let updatedStyles = [styles.text];
 
+  updatedStyles.push(props.style);
+
   if (props.light) {
     updatedStyles.push({ fontFamily: "customLight" });
   }

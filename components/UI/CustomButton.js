@@ -9,18 +9,9 @@ import theme from "../../theme/theme";
 
 const CustomButton = (props) => {
   const currentList = useSelector((state) => state.tasks.currentList);
-  const buttonStyles = (pressed) => {
-    let updatedStyles = [styles.listButton];
-
-    if (pressed) {
-      updatedStyles.push({ backgroundColor: theme.primaryLight });
-    }
-
-    return updatedStyles;
-  };
 
   return (
-    <Pressable {...props} style={({ pressed }) => buttonStyles(pressed)}>
+    <Pressable {...props} style={styles.listButton}>
       <CustomText light size={15}>
         {props.title}
       </CustomText>
@@ -36,15 +27,14 @@ export default CustomButton;
 const styles = StyleSheet.create({
   listButton: {
     paddingHorizontal: 10,
-    paddingTop: 5,
     marginRight: 15,
-    borderRadius: 500,
-    justifyContent: "center",
+    justifyContent: "space-between",
     backgroundColor: theme.primary,
   },
   accent: {
     backgroundColor: theme.secondary,
-    height: 4,
+    alignSelf: "flex-end",
+    height: 5,
     width: "100%",
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,

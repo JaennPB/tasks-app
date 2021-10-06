@@ -43,7 +43,11 @@ const Dashboard = () => {
               onPress={() => openListHandler(list.name)}
             />
           ))}
-          <CustomButton title="Add list" notAList onPress={addNewListHandler} />
+          <CustomButton
+            title="+ New list"
+            notAList
+            onPress={addNewListHandler}
+          />
         </ScrollView>
       </View>
     </View>

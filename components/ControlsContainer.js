@@ -4,18 +4,31 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
+import { useDispatch } from "react-redux";
+import { toggleAllListsModal, toggleOptionsModal } from "../store/tasksSlice";
+
 import AddTaskButton from "./UI/AddTaskButton";
 
 import theme from "../theme/theme";
 
 const ControlsContainer = () => {
+  const dispatch = useDispatch();
+
+  const openAllListsModalHandler = () => {
+    dispatch(toggleAllListsModal(true));
+  };
+
+  const openOptionsModalHandler = () => {
+    dispatch(toggleOptionsModal(true));
+  };
+
   return (
     <View style={styles.ControlsContainer}>
-      <Pressable style={styles.button1} onPress={() => {}}>
+      <Pressable style={styles.button1} onPress={openAllListsModalHandler}>
         <Ionicons name="menu-outline" size={30} color="white" />
       </Pressable>
       <AddTaskButton />
-      <Pressable style={styles.button2} onPress={() => {}}>
+      <Pressable style={styles.button2} onPress={openOptionsModalHandler}>
         <Entypo name="dots-three-vertical" size={20} color="white" />
       </Pressable>
     </View>

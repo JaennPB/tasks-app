@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAdding: false,
   isAddingDetails: false,
+  allListsIsOpen: false,
+  optionsIsOpen: false,
   currentList: "My tasks",
   lists: [
     {
@@ -49,6 +51,12 @@ const tasksSlice = createSlice({
     switchList: (state, action) => {
       state.currentList = action.payload;
     },
+    toggleAllListsModal: (state, action) => {
+      state.allListsIsOpen = action.payload;
+    },
+    toggleOptionsModal: (state, action) => {
+      state.optionsIsOpen = action.payload;
+    },
   },
 });
 
@@ -60,6 +68,8 @@ export const {
   removeTask,
   addList,
   switchList,
+  toggleAllListsModal,
+  toggleOptionsModal,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
