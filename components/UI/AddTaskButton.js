@@ -5,11 +5,20 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Feather } from "@expo/vector-icons";
 
+import { toggleIsAdding } from "../../store/tasksSlice";
+import { useDispatch } from "react-redux";
+
 import theme from "../../theme/theme";
 
 const AddTaskButton = () => {
+  const dispatch = useDispatch();
+
+  const addNewTaskHandler = () => {
+    dispatch(toggleIsAdding(true));
+  };
+
   return (
-    <Pressable style={styles.buttonContainer} onPress={() => {}}>
+    <Pressable style={styles.buttonContainer} onPress={addNewTaskHandler}>
       <LinearGradient
         colors={[theme.secondary, theme.accent]}
         style={styles.gradient}

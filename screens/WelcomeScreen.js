@@ -11,7 +11,7 @@ const WelcomeScreen = () => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("MainScreen");
-    }, 2000);
+    }, 1500);
   }, [navigation]);
 
   return (

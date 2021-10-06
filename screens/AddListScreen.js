@@ -5,13 +5,14 @@ import {
   TextInput,
   Platform,
   Pressable,
+  Alert,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
 import CustomText from "../components/UI/CustomText";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addList } from "../store/tasksSlice";
 
 import theme from "../theme/theme";
@@ -21,9 +22,19 @@ const AddListScreen = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const inputRef = useRef(null);
+  const lists = useSelector((state) => state.tasks.lists);
 
   const addListHandler = () => {
-    if (title === "My tasks") return;
+    if (title === undefined || title.trim(" ") === "") {
+      Alert.alert("Error", "Please add a valid title name");
+      return;
+    }
+
+    if (lists.find((list) => list.name === title)) {
+      Alert.alert("List name already exists", "Please add a different name.");
+      return;
+    }
+
     dispatch(addList(title));
     navigation.goBack();
   };
@@ -31,7 +42,7 @@ const AddListScreen = (props) => {
   useLayoutEffect(() => {
     Platform.OS === "ios"
       ? inputRef.current.focus()
-      : setTimeout(() => inputRef.current.focus(), 10);
+      : setTimeout(() => inputRef.current.focus(), 50);
 
     props.navigation.setOptions({
       headerRight: () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -10,7 +10,6 @@ import moment from "moment";
 
 import CustomText from "./UI/CustomText";
 import CustomButton from "./UI/CustomButton";
-
 import theme from "../theme/theme";
 
 const Dashboard = () => {
@@ -36,14 +35,16 @@ const Dashboard = () => {
         <CustomText regular>{moment().format("MMMM Do YYYY")}</CustomText>
       </View>
       <View style={styles.listButtonContainer}>
-        {lists.map((list) => (
-          <CustomButton
-            title={list.name}
-            key={list.name}
-            onPress={() => openListHandler(list.name)}
-          />
-        ))}
-        <CustomButton title="Add list" notAList onPress={addNewListHandler} />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {lists.map((list) => (
+            <CustomButton
+              title={list.name}
+              key={list.name}
+              onPress={() => openListHandler(list.name)}
+            />
+          ))}
+          <CustomButton title="Add list" notAList onPress={addNewListHandler} />
+        </ScrollView>
       </View>
     </View>
   );
@@ -57,20 +58,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomColor: theme.primaryLight,
     borderBottomWidth: 1,
-    paddingHorizontal: 20,
   },
   logo: {
     resizeMode: "contain",
     height: "30%",
     width: 140,
     alignSelf: "flex-end",
+    marginRight: 20,
   },
   dateBox: {
     alignSelf: "flex-start",
+    marginLeft: 20,
   },
   listButtonContainer: {
     marginTop: 10,
     flexDirection: "row",
     height: 30,
+    paddingHorizontal: 10,
   },
 });
