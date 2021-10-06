@@ -21,7 +21,9 @@ const CustomButton = (props) => {
 
   return (
     <Pressable {...props} style={({ pressed }) => buttonStyles(pressed)}>
-      <CustomText light>{props.title}</CustomText>
+      <CustomText light size={15}>
+        {props.title}
+      </CustomText>
       {!props.notAList && currentList === props.title ? (
         <View style={styles.accent}></View>
       ) : null}
@@ -34,12 +36,11 @@ export default CustomButton;
 const styles = StyleSheet.create({
   listButton: {
     paddingHorizontal: 10,
-    paddingTop: 4,
+    paddingTop: 5,
     marginRight: 15,
     borderRadius: 500,
     justifyContent: "center",
     backgroundColor: theme.primary,
-    justifyContent: "space-between",
   },
   accent: {
     backgroundColor: theme.secondary,
@@ -47,5 +48,6 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopRightRadius: 8,
     borderTopLeftRadius: 8,
+    marginTop: 3,
   },
 });

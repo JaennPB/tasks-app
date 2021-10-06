@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAdding: false,
-  currentList: "My tasks", // will change
+  isAddingDetails: false,
+  currentList: "My tasks",
   lists: [
     {
       name: "My tasks",
@@ -19,8 +20,11 @@ const tasksSlice = createSlice({
     toggleIsAdding: (state, action) => {
       state.isAdding = action.payload;
     },
+    toggleIsAddingDetails: (state, action) => {
+      state.isAddingDetails = action.payload;
+    },
     addTask: (state, action) => {
-      if (currentList === "My tasks") {
+      if (state.currentList === "My tasks") {
         state.lists[0].uncompleted.push(action.payload);
       } else {
         state.lists
@@ -50,6 +54,7 @@ const tasksSlice = createSlice({
 
 export const {
   toggleIsAdding,
+  toggleIsAddingDetails,
   addTask,
   completeTask,
   removeTask,

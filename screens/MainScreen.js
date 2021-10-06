@@ -1,5 +1,9 @@
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 import Dashboard from "../components/Dashboard";
 import ControlsContainer from "../components/ControlsContainer";

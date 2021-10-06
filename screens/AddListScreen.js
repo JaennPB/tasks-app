@@ -78,12 +78,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: theme.primary,
-    justifyContent: "flex-end",
   },
   input: {
-    marginTop: 10,
-    borderTopColor: theme.secondary,
-    borderTopWidth: 2,
+    borderBottomColor: theme.secondary,
+    borderBottomWidth: 2,
     backgroundColor: theme.primaryLight,
     paddingHorizontal: 20,
     paddingVertical: 15,
