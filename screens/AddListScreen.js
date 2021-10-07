@@ -24,17 +24,15 @@ const AddListScreen = (props) => {
   const inputRef = useRef(null);
   const lists = useSelector((state) => state.tasks.lists);
 
-  const addListHandler = () => {
+  const addListHandler = (props) => {
     if (title === undefined || title.trim(" ") === "") {
       Alert.alert("Error", "Please add a valid title name");
       return;
     }
-
     if (lists.find((list) => list.name === title)) {
       Alert.alert("List name already exists", "Please add a different name.");
       return;
     }
-
     dispatch(addList(title));
     navigation.goBack();
   };
@@ -44,7 +42,14 @@ const AddListScreen = (props) => {
       ? inputRef.current.focus()
       : setTimeout(() => inputRef.current.focus(), 70);
 
-    props.navigation.setOptions({
+    if (props.route.params.from === "optionsRoute") {
+      navigation.setOptions({ title: props.route.params.title });
+    }
+    if (props.route.params.from === "newListRoute") {
+      navigation.setOptions({ title: props.route.params.title });
+    }
+
+    navigation.setOptions({
       headerRight: () => {
         return (
           <Pressable onPress={addListHandler}>
@@ -57,6 +62,12 @@ const AddListScreen = (props) => {
     });
   });
 
+  let editingListName;
+  if (props.route.params.from === "optionsRoute") {
+    const currentListName = useSelector((state) => state.tasks.currentList);
+    editingListName = currentListName;
+  }
+
   return (
     <SafeAreaView style={styles.screen}>
       <TextInput
@@ -66,7 +77,7 @@ const AddListScreen = (props) => {
         ref={inputRef}
         autoCapitalize="sentences"
         onChangeText={setTitle}
-        value={title}
+        value={editingListName || title}
       />
     </SafeAreaView>
   );
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.primary,
   },
   input: {
-    borderBottomColor: theme.secondary,
+    borderBottomColor: "grey",
     borderBottomWidth: 2,
     backgroundColor: theme.primaryLight,
     paddingHorizontal: 20,

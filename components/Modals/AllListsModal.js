@@ -22,7 +22,10 @@ const AllListsModal = () => {
 
   const addNewListHandler = () => {
     closeModal();
-    navigation.navigate("AddListScreen");
+    navigation.navigate("AddListScreen", {
+      title: "Create new list",
+      from: "newListRoute",
+    });
   };
 
   const openListHandler = (list) => {

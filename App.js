@@ -50,7 +50,6 @@ const App = () => {
               name="AddListScreen"
               component={AddListScreen}
               options={{
-                headerTitle: "Create new list",
                 headerTitleStyle: {
                   fontFamily: "customLight",
                   color: "white",

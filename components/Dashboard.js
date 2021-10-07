@@ -18,7 +18,10 @@ const Dashboard = () => {
   const navigation = useNavigation();
 
   const addNewListHandler = () => {
-    navigation.navigate("AddListScreen");
+    navigation.navigate("AddListScreen", {
+      title: "Create new list",
+      from: "newListRoute",
+    });
   };
 
   const openListHandler = (list) => {
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 2.5,
     justifyContent: "space-between",
     borderBottomColor: theme.primaryLight,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
   },
   logo: {
     resizeMode: "contain",

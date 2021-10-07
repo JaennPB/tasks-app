@@ -1,5 +1,7 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+
+import { useNavigation } from "@react-navigation/core";
 
 import { useDispatch } from "react-redux";
 import { toggleOptionsModal } from "../../store/tasksSlice";
@@ -11,23 +13,32 @@ import theme from "../../theme/theme";
 
 const OptionsModal = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const closeModal = () => {
     dispatch(toggleOptionsModal(false));
+  };
+
+  const addNewListHandler = () => {
+    closeModal();
+    navigation.navigate("AddListScreen", {
+      title: "Edit list name",
+      from: "optionsRoute",
+    });
   };
 
   return (
     <CustomModal>
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
       <View style={styles.modalContainer}>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={() => addNewListHandler()}>
           <CustomText>Rename list</CustomText>
         </Pressable>
         <Pressable style={styles.button}>
           <CustomText>Delete list</CustomText>
         </Pressable>
         <Pressable style={styles.button}>
-          <CustomText>Delete All completed tasks</CustomText>
+          <CustomText>Delete all completed tasks</CustomText>
         </Pressable>
       </View>
     </CustomModal>
