@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,18 +13,34 @@ import { useNavigation } from "@react-navigation/core";
 import CustomText from "../components/UI/CustomText";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addList } from "../store/tasksSlice";
+import {
+  addList,
+  toggleIsEditingTitle,
+  editListName,
+} from "../store/tasksSlice";
 
 import theme from "../theme/theme";
 
 const AddListScreen = (props) => {
   const [title, setTitle] = useState();
+  const [editingTitle, setEditingTitle] = useState();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const inputRef = useRef(null);
   const lists = useSelector((state) => state.tasks.lists);
+  const { from } = props.route.params;
 
-  const addListHandler = (props) => {
+  let isEditing;
+  let currListTitle;
+
+  if (from === "optionsRoute") {
+    dispatch(toggleIsEditingTitle(true));
+    isEditing = useSelector((state) => state.tasks.isEditingTitle);
+
+    currListTitle = useSelector((state) => state.tasks.currentList);
+  }
+
+  const addListHandler = () => {
     if (title === undefined || title.trim(" ") === "") {
       Alert.alert("Error", "Please add a valid title name");
       return;
@@ -37,24 +53,33 @@ const AddListScreen = (props) => {
     navigation.goBack();
   };
 
+  const editListTitleHandler = () => {
+    console.log("Editing");
+    dispatch(editListName(editingTitle));
+    navigation.goBack();
+    // merge with addListHandler
+  };
+
   useLayoutEffect(() => {
     Platform.OS === "ios"
       ? inputRef.current.focus()
       : setTimeout(() => inputRef.current.focus(), 70);
 
-    if (props.route.params.from === "optionsRoute") {
+    if (from === "optionsRoute") {
       navigation.setOptions({ title: props.route.params.title });
     }
-    if (props.route.params.from === "newListRoute") {
+    if (from === "newListRoute") {
       navigation.setOptions({ title: props.route.params.title });
     }
 
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={addListHandler}>
+          <Pressable
+            onPress={isEditing ? editListTitleHandler : addListHandler}
+          >
             <CustomText regular size={18} color={theme.accent}>
-              Add
+              {isEditing ? "Rename" : "Add"}
             </CustomText>
           </Pressable>
         );
@@ -62,22 +87,16 @@ const AddListScreen = (props) => {
     });
   });
 
-  let editingListName;
-  if (props.route.params.from === "optionsRoute") {
-    const currentListName = useSelector((state) => state.tasks.currentList);
-    editingListName = currentListName;
-  }
-
   return (
     <SafeAreaView style={styles.screen}>
       <TextInput
         style={styles.input}
-        placeholder="Enter list name"
+        placeholder={isEditing ? currListTitle : "Enter list name"}
         placeholderTextColor="grey"
         ref={inputRef}
         autoCapitalize="sentences"
-        onChangeText={setTitle}
-        value={editingListName || title}
+        onChangeText={isEditing ? setEditingTitle : setTitle}
+        value={isEditing ? editingTitle : title}
       />
     </SafeAreaView>
   );

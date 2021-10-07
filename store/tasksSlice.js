@@ -5,6 +5,7 @@ const initialState = {
   isAddingDetails: false,
   allListsIsOpen: false,
   optionsIsOpen: false,
+  isEditingTitle: false,
   currentList: "My tasks",
   lists: [
     {
@@ -57,6 +58,18 @@ const tasksSlice = createSlice({
     toggleOptionsModal: (state, action) => {
       state.optionsIsOpen = action.payload;
     },
+    toggleIsEditingTitle: (state, action) => {
+      state.isEditingTitle = action.payload;
+    },
+    editListName: (state, action) => {
+      const currentList = state.currentList;
+      const currentListObject = state.lists.find(
+        (list) => list.name === currentList
+      );
+
+      currentListObject.name = action.payload;
+      state.currentList = action.payload;
+    },
   },
 });
 
@@ -70,6 +83,8 @@ export const {
   switchList,
   toggleAllListsModal,
   toggleOptionsModal,
+  toggleIsEditingTitle,
+  editListName,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
