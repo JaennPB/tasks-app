@@ -70,6 +70,14 @@ const tasksSlice = createSlice({
       currentListObject.name = action.payload;
       state.currentList = action.payload;
     },
+    deleteList: (state, action) => {
+      state.lists = state.lists.filter(
+        (list) => list.name !== state.currentList
+      );
+      if (state.lists.length > 0) {
+        state.currentList = state.lists[0].name;
+      }
+    },
   },
 });
 
@@ -85,6 +93,7 @@ export const {
   toggleOptionsModal,
   toggleIsEditingTitle,
   editListName,
+  deleteList,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -40,24 +40,29 @@ const AddListScreen = (props) => {
     currListTitle = useSelector((state) => state.tasks.currentList);
   }
 
-  const addListHandler = () => {
-    if (title === undefined || title.trim(" ") === "") {
+  const addEditListTitle = () => {
+    let value;
+    if (isEditing) {
+      value = editingTitle;
+    } else {
+      value = title;
+    }
+
+    if (value === undefined || value.trim(" ") === "") {
       Alert.alert("Error", "Please add a valid title name");
       return;
     }
-    if (lists.find((list) => list.name === title)) {
+    if (lists.find((list) => list.name === value)) {
       Alert.alert("List name already exists", "Please add a different name.");
       return;
     }
-    dispatch(addList(title));
-    navigation.goBack();
-  };
 
-  const editListTitleHandler = () => {
-    console.log("Editing");
-    dispatch(editListName(editingTitle));
+    if (isEditing) {
+      dispatch(editListName(editingTitle.trim(" ")));
+    } else {
+      dispatch(addList(title.trim(" ")));
+    }
     navigation.goBack();
-    // merge with addListHandler
   };
 
   useLayoutEffect(() => {
@@ -75,9 +80,7 @@ const AddListScreen = (props) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable
-            onPress={isEditing ? editListTitleHandler : addListHandler}
-          >
+          <Pressable onPress={addEditListTitle}>
             <CustomText regular size={18} color={theme.accent}>
               {isEditing ? "Rename" : "Add"}
             </CustomText>
