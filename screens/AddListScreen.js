@@ -42,7 +42,7 @@ const AddListScreen = (props) => {
   useLayoutEffect(() => {
     Platform.OS === "ios"
       ? inputRef.current.focus()
-      : setTimeout(() => inputRef.current.focus(), 50);
+      : setTimeout(() => inputRef.current.focus(), 70);
 
     props.navigation.setOptions({
       headerRight: () => {

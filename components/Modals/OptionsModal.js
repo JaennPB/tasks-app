@@ -38,13 +38,12 @@ export default OptionsModal;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    padding: 20,
     backgroundColor: theme.primaryLight,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   button: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingVertical: 20,
   },
   backdrop: {

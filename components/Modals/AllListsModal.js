@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Pressable } from "react-native";
 
-import { useDispatch } from "react-redux";
-import { toggleAllListsModal } from "../../store/tasksSlice";
+import { useNavigation } from "@react-navigation/core";
+
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAllListsModal, switchList } from "../../store/tasksSlice";
 
 import CustomModal from "../UI/CustomModal";
 import CustomText from "../UI/CustomText";
@@ -11,18 +13,39 @@ import theme from "../../theme/theme";
 
 const AllListsModal = () => {
   const dispatch = useDispatch();
+  const lists = useSelector((state) => state.tasks.lists);
+  const navigation = useNavigation();
 
   const closeModal = () => {
     dispatch(toggleAllListsModal(false));
+  };
+
+  const addNewListHandler = () => {
+    closeModal();
+    navigation.navigate("AddListScreen");
+  };
+
+  const openListHandler = (list) => {
+    closeModal();
+    dispatch(switchList(list));
   };
 
   return (
     <CustomModal>
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
       <View style={styles.modalContainer}>
+        {lists.map((list) => (
+          <Pressable
+            key={list.name}
+            style={styles.listItem}
+            onPress={() => openListHandler(list.name)}
+          >
+            <CustomText>{list.name}</CustomText>
+          </Pressable>
+        ))}
         <View style={styles.addListButtonContainer}>
-          <Pressable onPress={() => {}}>
-            <CustomText color="white" style={{ marginLeft: 20 }}>
+          <Pressable onPress={addNewListHandler}>
+            <CustomText color="white" style={{ marginLeft: 20 }} size={15}>
               + Create New List
             </CustomText>
           </Pressable>
@@ -36,8 +59,7 @@ export default AllListsModal;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    // padding: 20,
-    paddingVertical: 20,
+    paddingBottom: 20,
     backgroundColor: theme.primaryLight,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -47,7 +69,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   addListButtonContainer: {
-    borderTopColor: theme.primary,
+    borderTopColor: "grey",
     width: "100%",
     borderTopWidth: 1,
     paddingTop: 20,
@@ -55,5 +77,9 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     height: "100%",
+  },
+  listItem: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
   },
 });
