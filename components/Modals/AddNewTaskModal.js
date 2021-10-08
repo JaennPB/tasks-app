@@ -2,7 +2,8 @@ import React, { useState, useLayoutEffect, useRef } from "react";
 import { StyleSheet, TextInput, Pressable } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { toggleIsAdding } from "../../store/tasksSlice";
+import { addTask } from "../../store/tasksSlice";
+import { toggleIsAdding } from "../../store/uiSlice";
 
 import CustomModal from "../UI/CustomModal";
 import ModalControlsContainer from "../ModalControlsContainer";
@@ -13,7 +14,7 @@ const AddNewTaskModal = () => {
   const dispatch = useDispatch();
   const [task, setTask] = useState();
   const [details, setDetails] = useState();
-  const isAddingDetails = useSelector((state) => state.tasks.isAddingDetails);
+  const isAddingDetails = useSelector((state) => state.ui.isAddingDetails);
 
   const inputRef = useRef(null);
 
@@ -25,6 +26,14 @@ const AddNewTaskModal = () => {
 
   const closeModal = () => {
     dispatch(toggleIsAdding(false));
+  };
+
+  const addNewTaskHandler = () => {
+    closeModal();
+    dispatch(addTask(task));
+    if (details) {
+      console.log("details added");
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ const AddNewTaskModal = () => {
           value={details}
         />
       )}
-      <ModalControlsContainer />
+      <ModalControlsContainer addTaskOnPress={addNewTaskHandler} />
     </CustomModal>
   );
 };

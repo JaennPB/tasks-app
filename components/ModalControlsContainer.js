@@ -4,13 +4,13 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { useDispatch } from "react-redux";
-import { toggleIsAdding, toggleIsAddingDetails } from "../store/tasksSlice";
+import { toggleIsAdding, toggleIsAddingDetails } from "../store/uiSlice";
 
 import CustomText from "./UI/CustomText";
 
 import theme from "../theme/theme";
 
-const ModalControlsContainer = () => {
+const ModalControlsContainer = (props) => {
   const dispatch = useDispatch();
 
   const cancelAddTaskHandler = () => {
@@ -33,7 +33,7 @@ const ModalControlsContainer = () => {
             Cancel
           </CustomText>
         </Pressable>
-        <Pressable>
+        <Pressable onPress={props.addTaskOnPress}>
           <CustomText color={theme.accent} size={18}>
             Save
           </CustomText>

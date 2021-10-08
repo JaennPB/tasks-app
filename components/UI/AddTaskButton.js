@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Feather } from "@expo/vector-icons";
 
-import { toggleIsAdding } from "../../store/tasksSlice";
+import { toggleIsAdding } from "../../store/uiSlice";
 import { useDispatch } from "react-redux";
 
 import theme from "../../theme/theme";

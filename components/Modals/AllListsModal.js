@@ -4,7 +4,8 @@ import { StyleSheet, View, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { toggleAllListsModal, switchList } from "../../store/tasksSlice";
+import { switchList } from "../../store/tasksSlice";
+import { toggleAllListsModal } from "../../store/uiSlice";
 
 import CustomModal from "../UI/CustomModal";
 import CustomText from "../UI/CustomText";

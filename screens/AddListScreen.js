@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,14 +10,11 @@ import {
 
 import { useNavigation } from "@react-navigation/core";
 
-import CustomText from "../components/UI/CustomText";
-
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addList,
-  toggleIsEditingTitle,
-  editListName,
-} from "../store/tasksSlice";
+import { addList, editListName } from "../store/tasksSlice";
+import { toggleIsEditingTitle } from "../store/uiSlice";
+
+import CustomText from "../components/UI/CustomText";
 
 import theme from "../theme/theme";
 
@@ -26,16 +23,16 @@ const AddListScreen = (props) => {
   const [editingTitle, setEditingTitle] = useState();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const inputRef = useRef(null);
   const lists = useSelector((state) => state.tasks.lists);
   const { from } = props.route.params;
+  const inputRef = useRef(null);
 
   let isEditing;
   let currListTitle;
 
   if (from === "optionsRoute") {
     dispatch(toggleIsEditingTitle(true));
-    isEditing = useSelector((state) => state.tasks.isEditingTitle);
+    isEditing = useSelector((state) => state.ui.isEditingTitle);
 
     currListTitle = useSelector((state) => state.tasks.currentList);
   }

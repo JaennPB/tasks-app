@@ -4,7 +4,8 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
 import { useDispatch } from "react-redux";
-import { toggleOptionsModal, deleteList } from "../../store/tasksSlice";
+import { deleteList } from "../../store/tasksSlice";
+import { toggleOptionsModal } from "../../store/uiSlice";
 
 import CustomModal from "../UI/CustomModal";
 import CustomText from "../UI/CustomText";

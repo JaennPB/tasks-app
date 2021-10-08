@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
 import { useDispatch } from "react-redux";
-import { toggleAllListsModal, toggleOptionsModal } from "../store/tasksSlice";
+import { toggleAllListsModal, toggleOptionsModal } from "../store/uiSlice";
 
 import AddTaskButton from "./UI/AddTaskButton";
 

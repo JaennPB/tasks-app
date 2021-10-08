@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isAdding: false,
-  isAddingDetails: false,
-  allListsIsOpen: false,
-  optionsIsOpen: false,
-  isEditingTitle: false,
   currentList: "My tasks",
   lists: [
     {
@@ -20,22 +15,23 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    toggleIsAdding: (state, action) => {
-      state.isAdding = action.payload;
-    },
-    toggleIsAddingDetails: (state, action) => {
-      state.isAddingDetails = action.payload;
-    },
     addTask: (state, action) => {
-      if (state.currentList === "My tasks") {
-        state.lists[0].uncompleted.push(action.payload);
-      } else {
-        state.lists
-          .find((list) => list.name === action.payload)
-          .uncompleted.push(action.payload);
-      }
+      const currentList = state.currentList;
+      const currentListObject = state.lists.find(
+        (list) => list.name === currentList
+      );
+
+      currentListObject.uncompleted.unshift(action.payload);
     },
-    completeTask: (state, action) => {},
+    completeTask: (state, action) => {
+      const currentListObject = state.lists.find(
+        (list) => list.name === state.currentList
+      );
+      currentListObject.completed.unshift(action.payload);
+      currentListObject.uncompleted = currentListObject.uncompleted.filter(
+        (item) => item !== action.payload
+      );
+    },
     removeTask: (state, action) => {},
     addList: (state, action) => {
       state.lists = [
@@ -51,15 +47,6 @@ const tasksSlice = createSlice({
     },
     switchList: (state, action) => {
       state.currentList = action.payload;
-    },
-    toggleAllListsModal: (state, action) => {
-      state.allListsIsOpen = action.payload;
-    },
-    toggleOptionsModal: (state, action) => {
-      state.optionsIsOpen = action.payload;
-    },
-    toggleIsEditingTitle: (state, action) => {
-      state.isEditingTitle = action.payload;
     },
     editListName: (state, action) => {
       const currentList = state.currentList;
@@ -82,16 +69,11 @@ const tasksSlice = createSlice({
 });
 
 export const {
-  toggleIsAdding,
-  toggleIsAddingDetails,
   addTask,
   completeTask,
   removeTask,
   addList,
   switchList,
-  toggleAllListsModal,
-  toggleOptionsModal,
-  toggleIsEditingTitle,
   editListName,
   deleteList,
 } = tasksSlice.actions;
