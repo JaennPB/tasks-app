@@ -1,12 +1,12 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { StyleSheet, TextInput, Pressable } from "react-native";
+import { StyleSheet, TextInput, Pressable, Alert } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "../../store/tasksSlice";
-import { toggleIsAdding } from "../../store/uiSlice";
+import { toggleIsAdding, toggleIsAddingDetails } from "../../store/uiSlice";
 
 import CustomModal from "../UI/CustomModal";
-import ModalControlsContainer from "../ModalControlsContainer";
+import ModalControls from "../ModalControls";
 
 import theme from "../../theme/theme";
 
@@ -14,7 +14,11 @@ const AddNewTaskModal = () => {
   const dispatch = useDispatch();
   const [task, setTask] = useState();
   const [details, setDetails] = useState();
+
   const isAddingDetails = useSelector((state) => state.ui.isAddingDetails);
+  const allLists = useSelector((state) => state.tasks.lists);
+  const currentList = useSelector((state) => state.tasks.currentList);
+  const currentListObject = allLists.find((list) => list.name === currentList);
 
   const inputRef = useRef(null);
 
@@ -29,10 +33,16 @@ const AddNewTaskModal = () => {
   };
 
   const addNewTaskHandler = () => {
-    closeModal();
-    dispatch(addTask(task));
-    if (details) {
-      console.log("details added");
+    if (currentListObject.uncompleted.includes(task)) {
+      Alert.alert("Task already exists", "Please add a different task!");
+      return;
+    } else if (!task) {
+      Alert.alert("Empty", "Please type something.");
+      return;
+    } else {
+      closeModal();
+      dispatch(addTask({ title: task, details: details }));
+      dispatch(toggleIsAddingDetails(false));
     }
   };
 
@@ -58,7 +68,7 @@ const AddNewTaskModal = () => {
           value={details}
         />
       )}
-      <ModalControlsContainer addTaskOnPress={addNewTaskHandler} />
+      <ModalControls addTaskOnPress={addNewTaskHandler} />
     </CustomModal>
   );
 };

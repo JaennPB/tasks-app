@@ -12,8 +12,11 @@ const CompletedTaskItem = (props) => {
         <Feather name="check-circle" size={17} color="grey" />
       </Pressable>
       <Pressable style={styles.taskItem}>
-        <CustomText size={16} style={{ marginLeft: 10 }}>
+        <CustomText size={16} style={styles.text}>
           {props.children}
+        </CustomText>
+        <CustomText size={16} style={styles.text}>
+          hi
         </CustomText>
       </Pressable>
     </View>
@@ -30,5 +33,9 @@ const styles = StyleSheet.create({
   },
   taskItem: {
     width: "80%",
+  },
+  text: {
+    textDecorationLine: "line-through",
+    color: "grey",
   },
 });

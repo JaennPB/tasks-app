@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import { useSelector } from "react-redux";
 
@@ -7,40 +7,48 @@ import CustomText from "./UI/CustomText";
 import TaskItem from "./UI/TaskItem";
 import CompletedTaskItem from "./UI/CompletedTaskItem";
 
+import theme from "../theme/theme";
+import NoTasksOrLists from "./UI/NoTasksOrLists";
+
 const TasksContainer = () => {
   const allLists = useSelector((state) => state.tasks.lists);
   const currentList = useSelector((state) => state.tasks.currentList);
   const currentListObject = allLists.find((list) => list.name === currentList);
 
-  let noTasksInList;
-  if (allLists.length === 0) {
-    noListsInState = true;
-  }
-
   if (currentListObject) {
-    let noListsInState;
-    let tasksCompleted;
-    if (currentListObject.uncompleted.length === 0) {
-      noTasksInList = true;
-    }
-    if (currentListObject.completed.length >= 1) {
-      tasksCompleted = true;
-    }
-
     return (
       <View style={styles.tasksContainer}>
-        {!noListsInState &&
-          currentListObject.uncompleted.map((task) => (
-            <TaskItem key={task}>{task}</TaskItem>
-          ))}
-        {tasksCompleted &&
-          currentListObject.completed.map((task) => (
-            <CompletedTaskItem key={Math.random().toString()}>
-              {task}
-            </CompletedTaskItem>
-          ))}
-        {noListsInState && <CustomText>Add a list!</CustomText>}
-        {noTasksInList && <CustomText>Add some tasks!</CustomText>}
+        <ScrollView style={styles.tasksScroll}>
+          {currentListObject?.uncompleted.length === 0 && (
+            <NoTasksOrLists msg="Add some tasks" />
+          )}
+          {currentListObject?.uncompleted.length >= 1 &&
+            currentListObject.uncompleted.map((task, index) => (
+              <TaskItem
+                key={task + index}
+                title={task.title}
+                details={task.details}
+              />
+            ))}
+        </ScrollView>
+        <ScrollView style={styles.completedScroll}>
+          {currentListObject?.completed.length >= 1 && (
+            <View style={styles.completedContainer}>
+              <CustomText color="grey" style={{ alignSelf: "flex-end" }}>
+                Completed tasks
+              </CustomText>
+              {currentListObject.completed.map((task, index) => (
+                <CompletedTaskItem key={task + index}>{task}</CompletedTaskItem>
+              ))}
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.tasksContainer}>
+        {allLists.length === 0 && <NoTasksOrLists msg="Add a list" />}
       </View>
     );
   }
@@ -52,5 +60,17 @@ const styles = StyleSheet.create({
   tasksContainer: {
     flex: 8,
     padding: 20,
+  },
+  completedContainer: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: theme.primaryLight,
+    paddingTop: 10,
+  },
+  tasksScroll: {
+    backgroundColor: "red",
+  },
+  completedScroll: {
+    backgroundColor: "blue",
   },
 });

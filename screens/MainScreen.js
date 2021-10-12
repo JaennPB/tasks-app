@@ -4,7 +4,7 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
 
 import Dashboard from "../components/Dashboard";
-import ControlsContainer from "../components/ControlsContainer";
+import BottomControls from "../components/BottomControls";
 import TasksContainer from "../components/TasksContainer";
 import AddNewTaskModal from "../components/Modals/AddNewTaskModal";
 import AllListsModal from "../components/Modals/AllListsModal";
@@ -21,7 +21,7 @@ const MainScreen = () => {
     <SafeAreaView style={styles.screen}>
       <Dashboard />
       <TasksContainer />
-      <ControlsContainer />
+      <BottomControls />
       {isAdding && <AddNewTaskModal />}
       {allListsIsOpen && <AllListsModal />}
       {optionsIsOpen && <OptionsModal />}

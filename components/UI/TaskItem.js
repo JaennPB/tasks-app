@@ -16,7 +16,7 @@ const TaskItem = (props) => {
   };
 
   const openTaskHandler = () => {
-    console.log("hi2");
+    console.log("hi");
   };
 
   return (
@@ -24,10 +24,13 @@ const TaskItem = (props) => {
       <Pressable onPress={completeTaskHandler}>
         <Feather name="circle" size={17} color="grey" />
       </Pressable>
-      <Pressable onPress={props.completeTask} style={styles.taskItem}>
-        <CustomText size={16} style={{ marginLeft: 10 }}>
-          {props.children}
-        </CustomText>
+      <Pressable onPress={openTaskHandler} style={styles.taskItem}>
+        <CustomText size={16}>{props.title}</CustomText>
+        {props.details === undefined ? null : (
+          <CustomText size={13} color="grey">
+            {props.details}
+          </CustomText>
+        )}
       </Pressable>
     </View>
   );
@@ -43,5 +46,6 @@ const styles = StyleSheet.create({
   },
   taskItem: {
     width: "80%",
+    marginLeft: 10,
   },
 });

@@ -21,7 +21,10 @@ const tasksSlice = createSlice({
         (list) => list.name === currentList
       );
 
-      currentListObject.uncompleted.unshift(action.payload);
+      currentListObject.uncompleted.unshift({
+        title: action.payload.title,
+        details: action.payload.details,
+      });
     },
     completeTask: (state, action) => {
       const currentListObject = state.lists.find(
