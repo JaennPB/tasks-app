@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { useDispatch } from "react-redux";
 import { toggleIsAdding, toggleIsAddingDetails } from "../store/uiSlice";
@@ -25,7 +25,7 @@ const ModalControlsContainer = (props) => {
   return (
     <View style={styles.buttonsContainer}>
       <Pressable onPress={isAddingDetails}>
-        <MaterialCommunityIcons name="menu-down" size={25} color="white" />
+        <MaterialIcons name="arrow-drop-down" size={24} color="white" />
       </Pressable>
       <View style={styles.buttonsBox}>
         <Pressable onPress={cancelAddTaskHandler}>

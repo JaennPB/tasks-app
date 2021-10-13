@@ -18,11 +18,7 @@ const AddTaskButton = () => {
   };
 
   return (
-    <Pressable
-      style={styles.buttonContainer}
-      onPress={addNewTaskHandler}
-      hitSlop={{ top: 100, bottom: 20, left: 50, right: 50 }}
-    >
+    <Pressable style={styles.buttonContainer} onPress={addNewTaskHandler}>
       <LinearGradient
         colors={[theme.secondary, theme.accent]}
         style={styles.gradient}

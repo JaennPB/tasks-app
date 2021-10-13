@@ -1,14 +1,18 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { StyleSheet, TextInput, Pressable, Alert } from "react-native";
+import { StyleSheet, TextInput, Pressable, Alert, View } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addTask } from "../../store/tasksSlice";
 import { toggleIsAdding, toggleIsAddingDetails } from "../../store/uiSlice";
 
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
 import CustomModal from "../UI/CustomModal";
 import ModalControls from "../ModalControls";
 
 import theme from "../../theme/theme";
+import CustomText from "../UI/CustomText";
 
 const AddNewTaskModal = () => {
   const dispatch = useDispatch();
@@ -50,7 +54,7 @@ const AddNewTaskModal = () => {
     <CustomModal>
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
       <TextInput
-        style={styles.input}
+        style={styles.taskInput}
         placeholder="Enter new task"
         placeholderTextColor="grey"
         autoCapitalize="sentences"
@@ -59,14 +63,25 @@ const AddNewTaskModal = () => {
         ref={inputRef}
       />
       {isAddingDetails && (
-        <TextInput
-          style={styles.input2}
-          placeholder="Enter details"
-          placeholderTextColor="grey"
-          autoCapitalize="sentences"
-          onChangeText={setDetails}
-          value={details}
-        />
+        <>
+          <View style={styles.detailsContainer}>
+            <MaterialIcons name="playlist-add" size={25} color="white" />
+            <TextInput
+              style={styles.detailsInput}
+              placeholder="Enter details"
+              placeholderTextColor="grey"
+              autoCapitalize="sentences"
+              onChangeText={setDetails}
+              value={details}
+            />
+          </View>
+          <View style={styles.dateContainer}>
+            <AntDesign name="calendar" size={25} color="white" />
+            <Pressable style={styles.dateButton}>
+              <CustomText color="grey">Add time/date</CustomText>
+            </Pressable>
+          </View>
+        </>
       )}
       <ModalControls addTaskOnPress={addNewTaskHandler} />
     </CustomModal>
@@ -76,7 +91,7 @@ const AddNewTaskModal = () => {
 export default AddNewTaskModal;
 
 const styles = StyleSheet.create({
-  input: {
+  taskInput: {
     backgroundColor: theme.primaryLight,
     paddingHorizontal: 20,
     paddingVertical: 15,
@@ -84,15 +99,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
   },
-  input2: {
-    backgroundColor: theme.primaryLight,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+  detailsInput: {
     fontFamily: "customRegular",
-    fontSize: 15,
     color: "grey",
+    marginLeft: 10,
+    width: "100%",
   },
   backdrop: {
     height: "100%",
+  },
+  detailsContainer: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    flexDirection: "row",
+    backgroundColor: theme.primaryLight,
+  },
+  dateContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: theme.primaryLight,
+  },
+  dateButton: {
+    marginLeft: 10,
   },
 });

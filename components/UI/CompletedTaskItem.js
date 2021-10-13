@@ -13,11 +13,13 @@ const CompletedTaskItem = (props) => {
       </Pressable>
       <Pressable style={styles.taskItem}>
         <CustomText size={16} style={styles.text}>
-          {props.children}
+          {props.title}
         </CustomText>
-        <CustomText size={16} style={styles.text}>
-          hi
-        </CustomText>
+        {props.details === undefined ? null : (
+          <CustomText size={13} color="grey">
+            {props.details}
+          </CustomText>
+        )}
       </Pressable>
     </View>
   );
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
   },
   taskItem: {
     width: "80%",
+    marginLeft: 10,
   },
   text: {
     textDecorationLine: "line-through",

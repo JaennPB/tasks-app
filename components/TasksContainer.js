@@ -18,7 +18,7 @@ const TasksContainer = () => {
   if (currentListObject) {
     return (
       <View style={styles.tasksContainer}>
-        <ScrollView style={styles.tasksScroll}>
+        <ScrollView>
           {currentListObject?.uncompleted.length === 0 && (
             <NoTasksOrLists msg="Add some tasks" />
           )}
@@ -30,15 +30,17 @@ const TasksContainer = () => {
                 details={task.details}
               />
             ))}
-        </ScrollView>
-        <ScrollView style={styles.completedScroll}>
           {currentListObject?.completed.length >= 1 && (
             <View style={styles.completedContainer}>
               <CustomText color="grey" style={{ alignSelf: "flex-end" }}>
                 Completed tasks
               </CustomText>
               {currentListObject.completed.map((task, index) => (
-                <CompletedTaskItem key={task + index}>{task}</CompletedTaskItem>
+                <CompletedTaskItem
+                  key={task + index}
+                  title={task.title}
+                  details={task.details}
+                />
               ))}
             </View>
           )}
@@ -66,11 +68,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: theme.primaryLight,
     paddingTop: 10,
-  },
-  tasksScroll: {
-    backgroundColor: "red",
-  },
-  completedScroll: {
-    backgroundColor: "blue",
   },
 });

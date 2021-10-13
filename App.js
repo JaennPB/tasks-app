@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MainScreen from "./screens/MainScreen";
 import AddListScreen from "./screens/AddListScreen";
+import TaskOptionsScreen from "./screens/TaskOptionsScreen";
 
 import store from "./store/store";
 
@@ -58,6 +59,17 @@ const App = () => {
                   backgroundColor: theme.primaryLight,
                 },
                 headerTintColor: "white",
+              }}
+            />
+            <Stack.Screen
+              name="TaskOptionsScreen"
+              component={TaskOptionsScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: theme.primaryLight,
+                },
+                headerTintColor: "white",
+                headerTitle: "",
               }}
             />
           </Stack.Navigator>

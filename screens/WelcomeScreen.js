@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, Image, SafeAreaView } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -15,13 +15,11 @@ const WelcomeScreen = () => {
   }, [navigation]);
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <Image source={require("../assets/logo.jpg")} style={styles.logo} />
-    </View>
+    </SafeAreaView>
   );
 };
-
-// FIXME: CHECK LOGO QUALITY
 
 export default WelcomeScreen;
 

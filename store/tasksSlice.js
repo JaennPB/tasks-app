@@ -30,12 +30,22 @@ const tasksSlice = createSlice({
       const currentListObject = state.lists.find(
         (list) => list.name === state.currentList
       );
-      currentListObject.completed.unshift(action.payload);
+      currentListObject.completed.unshift({
+        title: action.payload.title,
+        details: action.payload.details,
+      });
       currentListObject.uncompleted = currentListObject.uncompleted.filter(
-        (item) => item !== action.payload
+        (item) => item.title !== action.payload.title
       );
     },
-    removeTask: (state, action) => {},
+    removeTask: (state, action) => {
+      const currentListObject = state.lists.find(
+        (list) => list.name === state.currentList
+      );
+      currentListObject.uncompleted = currentListObject.uncompleted.filter(
+        (item) => item.title !== action.payload
+      );
+    },
     addList: (state, action) => {
       state.lists = [
         ...state.lists,
