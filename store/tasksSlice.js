@@ -11,15 +11,19 @@ const initialState = {
   ],
 };
 
+const currentListObjectFinder = (state) => {
+  const currentListObject = state.lists.find(
+    (list) => list.name === state.currentList
+  );
+  return currentListObject;
+};
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
     addTask: (state, action) => {
-      const currentList = state.currentList;
-      const currentListObject = state.lists.find(
-        (list) => list.name === currentList
-      );
+      const currentListObject = currentListObjectFinder(state);
 
       currentListObject.uncompleted.unshift({
         title: action.payload.title,
@@ -27,9 +31,8 @@ const tasksSlice = createSlice({
       });
     },
     completeTask: (state, action) => {
-      const currentListObject = state.lists.find(
-        (list) => list.name === state.currentList
-      );
+      const currentListObject = currentListObjectFinder(state);
+
       currentListObject.completed.unshift({
         title: action.payload.title,
         details: action.payload.details,
@@ -39,12 +42,27 @@ const tasksSlice = createSlice({
       );
     },
     removeTask: (state, action) => {
-      const currentListObject = state.lists.find(
-        (list) => list.name === state.currentList
-      );
+      const currentListObject = currentListObjectFinder(state);
+
       currentListObject.uncompleted = currentListObject.uncompleted.filter(
         (item) => item.title !== action.payload
       );
+      currentListObject.completed = currentListObject.completed.filter(
+        (item) => item.title !== action.payload
+      );
+    },
+    removeAllTasks: (state, action) => {
+      const currentListObject = currentListObjectFinder(state);
+
+      currentListObject.completed = [];
+    },
+    addDetailsToCurrentTask: (state, action) => {
+      const currentListObject = currentListObjectFinder(state);
+
+      const currItem = currentListObject.uncompleted.find(
+        (item) => item.title === action.payload.taskTitle
+      );
+      currItem.details = action.payload.details;
     },
     addList: (state, action) => {
       state.lists = [
@@ -62,10 +80,7 @@ const tasksSlice = createSlice({
       state.currentList = action.payload;
     },
     editListName: (state, action) => {
-      const currentList = state.currentList;
-      const currentListObject = state.lists.find(
-        (list) => list.name === currentList
-      );
+      const currentListObject = currentListObjectFinder(state);
 
       currentListObject.name = action.payload;
       state.currentList = action.payload;
@@ -85,6 +100,8 @@ export const {
   addTask,
   completeTask,
   removeTask,
+  removeAllTasks,
+  addDetailsToCurrentTask,
   addList,
   switchList,
   editListName,

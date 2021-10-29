@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
 import { useDispatch } from "react-redux";
-import { deleteList } from "../../store/tasksSlice";
+import { deleteList, removeAllTasks } from "../../store/tasksSlice";
 import { toggleOptionsModal } from "../../store/uiSlice";
 
 import CustomModal from "../UI/CustomModal";
@@ -33,6 +33,11 @@ const OptionsModal = () => {
     dispatch(deleteList());
   };
 
+  const deleteAllTasksHandler = () => {
+    closeModal();
+    dispatch(removeAllTasks());
+  };
+
   return (
     <CustomModal>
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
@@ -43,7 +48,7 @@ const OptionsModal = () => {
         <Pressable style={styles.button} onPress={deleteListHandler}>
           <CustomText>Delete list</CustomText>
         </Pressable>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={deleteAllTasksHandler}>
           <CustomText>Delete all completed tasks</CustomText>
         </Pressable>
       </View>

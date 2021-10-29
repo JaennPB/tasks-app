@@ -78,7 +78,7 @@ const AddListScreen = (props) => {
       headerRight: () => {
         return (
           <Pressable onPress={addEditListTitle}>
-            <CustomText regular size={18} color={theme.accent}>
+            <CustomText regular size={18} color={theme.secondary}>
               {isEditing ? "Rename" : "Add"}
             </CustomText>
           </Pressable>

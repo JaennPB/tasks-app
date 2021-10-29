@@ -28,10 +28,10 @@ const TaskItem = (props) => {
   return (
     <View style={styles.itemContainer}>
       <Pressable onPress={completeTaskHandler}>
-        <Feather name="circle" size={17} color="grey" />
+        <Feather name="circle" size={18} color="grey" />
       </Pressable>
-      <Pressable onLongPress={openTaskHandler} style={styles.taskItem}>
-        <CustomText size={16}>{props.title}</CustomText>
+      <Pressable onPress={openTaskHandler} style={styles.taskItem}>
+        <CustomText size={18}>{props.title}</CustomText>
         {props.details === undefined ? null : (
           <CustomText size={13} color="grey">
             {props.details}

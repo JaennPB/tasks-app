@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, Pressable } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
-
 import { Feather } from "@expo/vector-icons";
 
 import { toggleIsAdding } from "../../store/uiSlice";
@@ -19,12 +17,7 @@ const AddTaskButton = () => {
 
   return (
     <Pressable style={styles.buttonContainer} onPress={addNewTaskHandler}>
-      <LinearGradient
-        colors={[theme.secondary, theme.accent]}
-        style={styles.gradient}
-      >
-        <Feather name="plus" size={40} color="white" />
-      </LinearGradient>
+      <Feather name="plus" size={40} color="white" />
     </Pressable>
   );
 };
@@ -37,10 +30,7 @@ const styles = StyleSheet.create({
     top: -30,
     borderRadius: 500,
     borderColor: theme.primary,
+    backgroundColor: theme.secondary,
     borderWidth: 8,
-  },
-  gradient: {
-    borderRadius: 500,
-    padding: 5,
   },
 });

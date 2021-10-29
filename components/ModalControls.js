@@ -34,7 +34,7 @@ const ModalControlsContainer = (props) => {
           </CustomText>
         </Pressable>
         <Pressable onPress={props.addTaskOnPress}>
-          <CustomText color={theme.accent} size={18}>
+          <CustomText color={theme.secondary} size={18}>
             Save
           </CustomText>
         </Pressable>

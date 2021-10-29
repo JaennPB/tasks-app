@@ -14,7 +14,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 import { useDispatch, useSelector } from "react-redux";
-import { completeTask, removeTask } from "../store/tasksSlice";
+import {
+  completeTask,
+  removeTask,
+  addDetailsToCurrentTask,
+} from "../store/tasksSlice";
 
 import CustomText from "../components/UI/CustomText";
 
@@ -38,12 +42,16 @@ const TaskOptionsScreen = (props) => {
   };
 
   const addDetailsHandler = () => {
-    console.log(details);
+    dispatch(
+      addDetailsToCurrentTask({ details: details, taskTitle: taskTitle })
+    );
   };
 
   useEffect(() => {
     const listener = navigation.addListener("beforeRemove", () => {
-      addDetailsHandler();
+      if (details) {
+        addDetailsHandler();
+      }
     });
     return listener;
   }, [navigation, details]);
@@ -53,7 +61,7 @@ const TaskOptionsScreen = (props) => {
       headerRight: () => {
         return (
           <Pressable onPress={deleteTaskHandler}>
-            <MaterialIcons name="delete" size={25} color="white" />
+            <MaterialIcons name="delete" size={25} color={theme.secondary} />
           </Pressable>
         );
       },
