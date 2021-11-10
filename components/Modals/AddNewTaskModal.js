@@ -6,13 +6,11 @@ import { addTask } from "../../store/tasksSlice";
 import { toggleIsAdding, toggleIsAddingDetails } from "../../store/uiSlice";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 
 import CustomModal from "../UI/CustomModal";
 import ModalControls from "../ModalControls";
 
 import theme from "../../theme/theme";
-import CustomText from "../UI/CustomText";
 
 const AddNewTaskModal = () => {
   const dispatch = useDispatch();
@@ -63,25 +61,17 @@ const AddNewTaskModal = () => {
         ref={inputRef}
       />
       {isAddingDetails && (
-        <>
-          <View style={styles.detailsContainer}>
-            <MaterialIcons name="playlist-add" size={25} color="white" />
-            <TextInput
-              style={styles.detailsInput}
-              placeholder="Enter details"
-              placeholderTextColor="grey"
-              autoCapitalize="sentences"
-              onChangeText={setDetails}
-              value={details}
-            />
-          </View>
-          <View style={styles.dateContainer}>
-            <AntDesign name="calendar" size={25} color="white" />
-            <Pressable style={styles.dateButton}>
-              <CustomText color="grey">Add time/date</CustomText>
-            </Pressable>
-          </View>
-        </>
+        <View style={styles.detailsContainer}>
+          <MaterialIcons name="playlist-add" size={25} color="white" />
+          <TextInput
+            style={styles.detailsInput}
+            placeholder="Enter details"
+            placeholderTextColor="grey"
+            autoCapitalize="sentences"
+            onChangeText={setDetails}
+            value={details}
+          />
+        </View>
       )}
       <ModalControls addTaskOnPress={addNewTaskHandler} />
     </CustomModal>
@@ -114,15 +104,5 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     flexDirection: "row",
     backgroundColor: theme.primaryLight,
-  },
-  dateContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: theme.primaryLight,
-  },
-  dateButton: {
-    marginLeft: 10,
   },
 });

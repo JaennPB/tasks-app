@@ -10,7 +10,6 @@ import {
 import { useNavigation } from "@react-navigation/core";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -94,12 +93,6 @@ const TaskOptionsScreen = (props) => {
           />
         )}
       </View>
-      <View style={styles.dateContainer}>
-        <AntDesign name="calendar" size={30} color="white" />
-        <CustomText style={styles.text} color="grey">
-          Add date/time
-        </CustomText>
-      </View>
     </SafeAreaView>
   );
 };
@@ -122,10 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
-  },
-  dateContainer: {
-    flexDirection: "row",
-    alignItems: "center",
   },
   text: {
     marginLeft: 10,
