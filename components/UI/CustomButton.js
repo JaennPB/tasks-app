@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Pressable, View } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 
 import CustomText from "./CustomText";
 
@@ -10,8 +10,18 @@ import theme from "../../theme/theme";
 const CustomButton = (props) => {
   const currentList = useSelector((state) => state.tasks.currentList);
 
+  const buttonStyles = (pressed) => {
+    let updatedStyles = [styles.listButton];
+
+    if (pressed) {
+      updatedStyles.push({ backgroundColor: "#3e3e3e" });
+    }
+
+    return updatedStyles;
+  };
+
   return (
-    <Pressable {...props} style={styles.listButton}>
+    <Pressable {...props} style={({ pressed }) => buttonStyles(pressed)}>
       <CustomText light size={15}>
         {props.title}
       </CustomText>
@@ -29,7 +39,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginRight: 15,
     justifyContent: "space-between",
-    backgroundColor: theme.primary,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   accent: {
     backgroundColor: theme.secondary,

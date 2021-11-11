@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Pressable } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Pressable } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -39,20 +39,20 @@ const AllListsModal = () => {
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
       <View style={styles.modalContainer}>
         {lists.map((list) => (
-          <Pressable
+          <TouchableOpacity
             key={list.name}
             style={styles.listItem}
             onPress={() => openListHandler(list.name)}
           >
             <CustomText>{list.name}</CustomText>
-          </Pressable>
+          </TouchableOpacity>
         ))}
         <View style={styles.addListButtonContainer}>
-          <Pressable onPress={addNewListHandler}>
+          <TouchableOpacity onPress={addNewListHandler}>
             <CustomText color="white" style={{ marginLeft: 20 }} size={15}>
               + Create New List
             </CustomText>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </CustomModal>

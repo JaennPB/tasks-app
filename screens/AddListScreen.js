@@ -4,8 +4,8 @@ import {
   StyleSheet,
   TextInput,
   Platform,
-  Pressable,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
@@ -77,11 +77,11 @@ const AddListScreen = (props) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={addEditListTitle}>
+          <TouchableOpacity onPress={addEditListTitle}>
             <CustomText regular size={18} color={theme.secondary}>
               {isEditing ? "Rename" : "Add"}
             </CustomText>
-          </Pressable>
+          </TouchableOpacity>
         );
       },
     });

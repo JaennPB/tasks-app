@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -42,20 +42,21 @@ const OptionsModal = () => {
     <CustomModal>
       <Pressable onPress={closeModal} style={styles.backdrop}></Pressable>
       <View style={styles.modalContainer}>
-        <Pressable style={styles.button} onPress={addNewListHandler}>
+        <TouchableOpacity style={styles.button} onPress={addNewListHandler}>
           <CustomText>Rename list</CustomText>
-        </Pressable>
-        <Pressable style={styles.button} onPress={deleteListHandler}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={deleteListHandler}>
           <CustomText>Delete list</CustomText>
-        </Pressable>
-        <Pressable style={styles.button} onPress={deleteAllTasksHandler}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={deleteAllTasksHandler}>
           <CustomText>Delete all completed tasks</CustomText>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </CustomModal>
   );
 };
 
+//TODO: check what happens when 'delete all completed tasks' and no tasks are present
 export default OptionsModal;
 
 const styles = StyleSheet.create({

@@ -15,8 +15,21 @@ const AddTaskButton = () => {
     dispatch(toggleIsAdding(true));
   };
 
+  const buttonStyles = (pressed) => {
+    let updatedStyles = [styles.buttonContainer];
+
+    if (pressed) {
+      updatedStyles.push({ backgroundColor: "#8bb1ff" });
+    }
+
+    return updatedStyles;
+  };
+
   return (
-    <Pressable style={styles.buttonContainer} onPress={addNewTaskHandler}>
+    <Pressable
+      style={({ pressed }) => buttonStyles(pressed)}
+      onPress={addNewTaskHandler}
+    >
       <Feather name="plus" size={40} color="white" />
     </Pressable>
   );

@@ -22,18 +22,34 @@ const ModalControlsContainer = (props) => {
     dispatch(toggleIsAddingDetails(true));
   };
 
+  const buttonStyles = (pressed) => {
+    let updatedStyles = [styles.button];
+
+    if (pressed) {
+      updatedStyles.push({ backgroundColor: "#353535" });
+    }
+
+    return updatedStyles;
+  };
+
   return (
     <View style={styles.buttonsContainer}>
       <Pressable onPress={isAddingDetails}>
         <MaterialIcons name="arrow-drop-down" size={24} color="white" />
       </Pressable>
       <View style={styles.buttonsBox}>
-        <Pressable onPress={cancelAddTaskHandler}>
+        <Pressable
+          onPress={cancelAddTaskHandler}
+          style={({ pressed }) => buttonStyles(pressed)}
+        >
           <CustomText color="white" size={18}>
             Cancel
           </CustomText>
         </Pressable>
-        <Pressable onPress={props.addTaskOnPress}>
+        <Pressable
+          onPress={props.addTaskOnPress}
+          style={({ pressed }) => buttonStyles(pressed)}
+        >
           <CustomText color={theme.secondary} size={18}>
             Save
           </CustomText>
@@ -57,5 +73,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "35%",
     justifyContent: "space-between",
+  },
+  button: {
+    padding: 2,
+    borderRadius: 5,
   },
 });
