@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   currentList: "My tasks",
@@ -17,6 +18,18 @@ const currentListObjectFinder = (state) => {
   );
   return currentListObject;
 };
+
+export const getAllDataAsyncStorage = createAsyncThunk(
+  "tasks/getAllDataAsyncStorage",
+  async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem("@allData");
+      return jsonData != null ? JSON.parse(jsonData) : null;
+    } catch (error) {
+      // error
+    }
+  }
+);
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -92,6 +105,11 @@ const tasksSlice = createSlice({
       if (state.lists.length > 0) {
         state.currentList = state.lists[0].name;
       }
+    },
+  },
+  extraReducers: {
+    [getAllDataAsyncStorage.fulfilled]: (state, action) => {
+      // update store
     },
   },
 });

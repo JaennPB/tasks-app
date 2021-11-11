@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -22,38 +22,22 @@ const ModalControlsContainer = (props) => {
     dispatch(toggleIsAddingDetails(true));
   };
 
-  const buttonStyles = (pressed) => {
-    let updatedStyles = [styles.button];
-
-    if (pressed) {
-      updatedStyles.push({ backgroundColor: "#353535" });
-    }
-
-    return updatedStyles;
-  };
-
   return (
     <View style={styles.buttonsContainer}>
-      <Pressable onPress={isAddingDetails}>
+      <TouchableOpacity onPress={isAddingDetails}>
         <MaterialIcons name="arrow-drop-down" size={24} color="white" />
-      </Pressable>
+      </TouchableOpacity>
       <View style={styles.buttonsBox}>
-        <Pressable
-          onPress={cancelAddTaskHandler}
-          style={({ pressed }) => buttonStyles(pressed)}
-        >
+        <TouchableOpacity onPress={cancelAddTaskHandler} style={styles.button}>
           <CustomText color="white" size={18}>
             Cancel
           </CustomText>
-        </Pressable>
-        <Pressable
-          onPress={props.addTaskOnPress}
-          style={({ pressed }) => buttonStyles(pressed)}
-        >
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.addTaskOnPress} style={styles.button}>
           <CustomText color={theme.secondary} size={18}>
             Save
           </CustomText>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

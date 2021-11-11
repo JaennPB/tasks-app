@@ -5,6 +5,7 @@ import {
   View,
   Pressable,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/core";
@@ -59,9 +60,9 @@ const TaskOptionsScreen = (props) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={deleteTaskHandler}>
+          <TouchableOpacity onPress={deleteTaskHandler}>
             <MaterialIcons name="delete" size={25} color={theme.secondary} />
-          </Pressable>
+          </TouchableOpacity>
         );
       },
     });

@@ -14,7 +14,7 @@ const CustomButton = (props) => {
     let updatedStyles = [styles.listButton];
 
     if (pressed) {
-      updatedStyles.push({ backgroundColor: "#3e3e3e" });
+      updatedStyles.push({ backgroundColor: theme.primaryLight });
     }
 
     return updatedStyles;

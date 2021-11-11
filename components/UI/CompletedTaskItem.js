@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Pressable } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+
+import * as Haptics from "expo-haptics";
 
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -7,13 +9,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { removeTask } from "../../store/tasksSlice";
 
+import theme from "../../theme/theme";
+
 import CustomText from "./CustomText";
 
 const CompletedTaskItem = (props) => {
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
+
   const showDeleteTaskIconHandler = () => {
     setIsDeleting(!isDeleting);
+    Haptics.selectionAsync();
   };
 
   const deleteTaskHandler = () => {
@@ -24,10 +30,8 @@ const CompletedTaskItem = (props) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.taskContainer}>
-        <Pressable>
-          <Feather name="check-circle" size={18} color="grey" />
-        </Pressable>
-        <Pressable
+        <Feather name="check-circle" size={18} color="grey" />
+        <TouchableOpacity
           style={styles.taskItem}
           onLongPress={showDeleteTaskIconHandler}
         >
@@ -39,12 +43,12 @@ const CompletedTaskItem = (props) => {
               {props.details}
             </CustomText>
           )}
-        </Pressable>
+        </TouchableOpacity>
       </View>
       {isDeleting && (
-        <Pressable onPress={deleteTaskHandler} style={styles.deleteButton}>
-          <MaterialIcons name="delete" size={25} color="crimson" />
-        </Pressable>
+        <TouchableOpacity onPress={deleteTaskHandler}>
+          <MaterialIcons name="delete" size={25} color={theme.secondary} />
+        </TouchableOpacity>
       )}
     </View>
   );

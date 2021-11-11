@@ -1,18 +1,34 @@
-import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+
+import * as Haptics from "expo-haptics";
 
 import { Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/core";
 
 import { useDispatch } from "react-redux";
-import { completeTask } from "../../store/tasksSlice";
+import { completeTask, removeTask } from "../../store/tasksSlice";
 
 import CustomText from "./CustomText";
+
+import theme from "../../theme/theme";
 
 const TaskItem = (props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const showDeleteTaskIconHandler = () => {
+    setIsDeleting(!isDeleting);
+    Haptics.selectionAsync();
+  };
+
+  const deleteTaskHandler = () => {
+    dispatch(removeTask(props.title));
+    setIsDeleting(!isDeleting);
+  };
 
   const completeTaskHandler = () => {
     dispatch(completeTask({ title: props.title, details: props.details }));
@@ -27,17 +43,28 @@ const TaskItem = (props) => {
 
   return (
     <View style={styles.itemContainer}>
-      <Pressable onPress={completeTaskHandler}>
-        <Feather name="circle" size={18} color="grey" />
-      </Pressable>
-      <Pressable onPress={openTaskHandler} style={styles.taskItem}>
-        <CustomText size={18}>{props.title}</CustomText>
-        {props.details === undefined ? null : (
-          <CustomText size={13} color="grey">
-            {props.details}
-          </CustomText>
-        )}
-      </Pressable>
+      <View style={styles.taskContainer}>
+        <TouchableOpacity onPress={completeTaskHandler}>
+          <Feather name="circle" size={18} color="grey" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={openTaskHandler}
+          style={styles.taskItem}
+          onLongPress={showDeleteTaskIconHandler}
+        >
+          <CustomText size={18}>{props.title}</CustomText>
+          {props.details === undefined ? null : (
+            <CustomText size={13} color="grey">
+              {props.details}
+            </CustomText>
+          )}
+        </TouchableOpacity>
+      </View>
+      {isDeleting && (
+        <TouchableOpacity onPress={deleteTaskHandler}>
+          <MaterialIcons name="delete" size={25} color={theme.secondary} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -48,7 +75,12 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 10,
+  },
+  taskContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   taskItem: {
     width: "80%",
