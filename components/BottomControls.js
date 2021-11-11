@@ -23,14 +23,16 @@ const ControlsContainer = () => {
   };
 
   return (
-    <View style={styles.ControlsContainer}>
-      <Pressable style={styles.button1} onPress={openAllListsModalHandler}>
-        <Ionicons name="menu-outline" size={30} color="white" />
-      </Pressable>
+    <View style={styles.controlsContainer}>
       <AddTaskButton />
-      <Pressable style={styles.button2} onPress={openOptionsModalHandler}>
-        <Entypo name="dots-three-vertical" size={20} color="white" />
-      </Pressable>
+      <View style={styles.controlsBox}>
+        <Pressable style={styles.button1} onPress={openAllListsModalHandler}>
+          <Ionicons name="menu-outline" size={30} color="white" />
+        </Pressable>
+        <Pressable style={styles.button2} onPress={openOptionsModalHandler}>
+          <Entypo name="dots-three-vertical" size={20} color="white" />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -38,8 +40,12 @@ const ControlsContainer = () => {
 export default ControlsContainer;
 
 const styles = StyleSheet.create({
-  ControlsContainer: {
-    flex: 0.8,
+  controlsContainer: {
+    flex: 1.2,
+    justifyContent: "flex-end",
+  },
+  controlsBox: {
+    flex: 0.7,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
   },
   button1: {
     width: 30,
-    alignItems: "flex-start",
   },
   button2: {
     width: 30,

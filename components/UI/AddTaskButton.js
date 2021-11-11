@@ -26,8 +26,10 @@ export default AddTaskButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    position: "relative",
-    top: -30,
+    position: "absolute",
+    top: -10,
+    zIndex: 100,
+    alignSelf: "center",
     borderRadius: 500,
     borderColor: theme.primary,
     backgroundColor: theme.secondary,
