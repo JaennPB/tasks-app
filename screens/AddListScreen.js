@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,25 +7,24 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
-import { useDispatch, useSelector } from "react-redux";
+import CustomText from "../components/UI/CustomText";
+
 import { addList, editListName } from "../store/tasksSlice";
 import { toggleIsEditingTitle } from "../store/uiSlice";
-
-import CustomText from "../components/UI/CustomText";
 
 import theme from "../theme/theme";
 
 const AddListScreen = (props) => {
-  const [title, setTitle] = useState();
-  const [editingTitle, setEditingTitle] = useState();
+  const [title, setTitle] = React.useState();
+  const [editingTitle, setEditingTitle] = React.useState();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const lists = useSelector((state) => state.tasks.lists);
   const { from } = props.route.params;
-  const inputRef = useRef(null);
+  const inputRef = React.useRef(null);
 
   let isEditing;
   let currListTitle;
@@ -62,7 +61,7 @@ const AddListScreen = (props) => {
     navigation.goBack();
   };
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     Platform.OS === "ios"
       ? inputRef.current.focus()
       : setTimeout(() => inputRef.current.focus(), 70);

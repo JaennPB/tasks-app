@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { useDispatch } from "react-redux";
-import { toggleIsAdding, toggleIsAddingDetails } from "../store/uiSlice";
-
 import CustomText from "./UI/CustomText";
+
+import { toggleIsAdding, toggleIsAddingDetails } from "../store/uiSlice";
 
 import theme from "../theme/theme";
 
@@ -24,7 +24,10 @@ const ModalControlsContainer = (props) => {
 
   return (
     <View style={styles.buttonsContainer}>
-      <TouchableOpacity onPress={isAddingDetails}>
+      <TouchableOpacity
+        onPress={isAddingDetails}
+        hitSlop={{ top: 10, right: 5, bottom: 10, left: 5 }}
+      >
         <MaterialIcons name="arrow-drop-down" size={24} color="white" />
       </TouchableOpacity>
       <View style={styles.buttonsBox}>

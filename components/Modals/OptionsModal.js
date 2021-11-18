@@ -1,14 +1,13 @@
 import React from "react";
 import { Pressable, StyleSheet, View, TouchableOpacity } from "react-native";
-
-import { useNavigation } from "@react-navigation/core";
-
 import { useDispatch } from "react-redux";
-import { deleteList, removeAllTasks } from "../../store/tasksSlice";
-import { toggleOptionsModal } from "../../store/uiSlice";
+import { useNavigation } from "@react-navigation/core";
 
 import CustomModal from "../UI/CustomModal";
 import CustomText from "../UI/CustomText";
+
+import { deleteList, removeAllTasks } from "../../store/tasksSlice";
+import { toggleOptionsModal } from "../../store/uiSlice";
 
 import theme from "../../theme/theme";
 

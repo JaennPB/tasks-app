@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Pressable } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { Feather } from "@expo/vector-icons";
 
 import { toggleIsAdding } from "../../store/uiSlice";
-import { useDispatch } from "react-redux";
 
 import theme from "../../theme/theme";
 

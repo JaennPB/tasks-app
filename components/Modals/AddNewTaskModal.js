@@ -1,21 +1,21 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React from "react";
 import { StyleSheet, TextInput, Pressable, Alert, View } from "react-native";
-
 import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "../../store/tasksSlice";
-import { toggleIsAdding, toggleIsAddingDetails } from "../../store/uiSlice";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
 import CustomModal from "../UI/CustomModal";
 import ModalControls from "../ModalControls";
 
+import { addTask } from "../../store/tasksSlice";
+import { toggleIsAdding, toggleIsAddingDetails } from "../../store/uiSlice";
+
 import theme from "../../theme/theme";
 
 const AddNewTaskModal = () => {
   const dispatch = useDispatch();
-  const [task, setTask] = useState();
-  const [details, setDetails] = useState();
+  const [task, setTask] = React.useState();
+  const [details, setDetails] = React.useState();
 
   const isAddingDetails = useSelector((state) => state.ui.isAddingDetails);
 
@@ -23,9 +23,9 @@ const AddNewTaskModal = () => {
   const currentList = useSelector((state) => state.tasks.currentList);
   const currentListObject = allLists.find((list) => list.name === currentList);
 
-  const inputRef = useRef(null);
+  const inputRef = React.useRef(null);
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     Platform.OS === "ios"
       ? inputRef.current.focus()
       : setTimeout(() => inputRef.current.focus(), 200);

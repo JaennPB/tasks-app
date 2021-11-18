@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 import * as Haptics from "expo-haptics";
-
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { useNavigation } from "@react-navigation/core";
-
-import { useDispatch } from "react-redux";
-import { completeTask, removeTask } from "../../store/tasksSlice";
-
 import CustomText from "./CustomText";
+
+import { completeTask, removeTask } from "../../store/tasksSlice";
 
 import theme from "../../theme/theme";
 
 const TaskItem = (props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
   const showDeleteTaskIconHandler = () => {
     setIsDeleting(!isDeleting);
@@ -44,7 +42,10 @@ const TaskItem = (props) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.taskContainer}>
-        <TouchableOpacity onPress={completeTaskHandler}>
+        <TouchableOpacity
+          onPress={completeTaskHandler}
+          hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+        >
           <Feather name="circle" size={18} color="grey" />
         </TouchableOpacity>
         <TouchableOpacity

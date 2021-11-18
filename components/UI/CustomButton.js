@@ -1,9 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Pressable } from "react-native";
+import { useSelector } from "react-redux";
 
 import CustomText from "./CustomText";
-
-import { useSelector } from "react-redux";
 
 import theme from "../../theme/theme";
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-
 import { useSelector } from "react-redux";
 
 import CustomText from "./UI/CustomText";

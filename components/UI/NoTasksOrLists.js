@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import { FontAwesome5 } from "@expo/vector-icons";
+
 import CustomText from "./CustomText";
 
 const NoTasksOrLists = (props) => {

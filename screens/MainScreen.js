@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
-
-import { useNavigation } from "@react-navigation/core";
-
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 import Dashboard from "../components/Dashboard";
 import BottomControls from "../components/BottomControls";
@@ -30,15 +28,14 @@ const MainScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    navigation.addListener("beforeRemove", (e) => {
-      e.preventDefault();
+  React.useEffect(() => {
+    navigation.addListener("focus", (e) => {
+      // console.log("focus");
+      dispatch(getAllDataAsyncStorage());
     });
 
-    if (!addedOrModified) {
-      dispatch(getAllDataAsyncStorage());
-    } else if (addedOrModified) {
-      console.log(allLists);
+    if (addedOrModified) {
+      // console.log(allLists);
       dispatch(sendAllDataAsyncStorage(allLists));
     }
   }, [navigation, addedOrModified]);
@@ -61,5 +58,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: theme.primary,
+    justifyContent: "center",
   },
 });

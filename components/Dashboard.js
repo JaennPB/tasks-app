@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Image, ScrollView } from "react-native";
-
-import { useNavigation } from "@react-navigation/core";
-
 import { useSelector, useDispatch } from "react-redux";
-import { switchList } from "../store/tasksSlice";
+import { useNavigation } from "@react-navigation/core";
 
 import moment from "moment";
 
 import CustomText from "./UI/CustomText";
 import CustomButton from "./UI/CustomButton";
+
+import { switchList } from "../store/tasksSlice";
+
 import theme from "../theme/theme";
 
 const Dashboard = () => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   return (
     <View style={styles.dashboardContainer}>
-      <Image source={require("../assets/logo.jpg")} style={styles.logo} />
+      <Image source={require("../assets/logo.png")} style={styles.logo} />
       <View style={styles.dateBox}>
         <CustomText light size={25}>
           {moment().format("dddd")}
@@ -61,15 +61,16 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   dashboardContainer: {
-    flex: 2.5,
+    paddingTop: 5,
+    flex: 3,
     justifyContent: "space-between",
     borderBottomColor: theme.primaryLight,
     borderBottomWidth: 2,
   },
   logo: {
     resizeMode: "contain",
-    height: "30%",
-    width: 140,
+    height: "33%",
+    width: 150,
     alignSelf: "flex-end",
     marginRight: 20,
   },

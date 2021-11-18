@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-import { useDispatch } from "react-redux";
-import { toggleAllListsModal, toggleOptionsModal } from "../store/uiSlice";
-
 import AddTaskButton from "./UI/AddTaskButton";
+
+import { toggleAllListsModal, toggleOptionsModal } from "../store/uiSlice";
 
 import theme from "../theme/theme";
 

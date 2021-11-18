@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,20 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-import { useDispatch, useSelector } from "react-redux";
+import CustomText from "../components/UI/CustomText";
+
 import {
   completeTask,
   removeTask,
   addDetailsToCurrentTask,
 } from "../store/tasksSlice";
-
-import CustomText from "../components/UI/CustomText";
 
 import theme from "../theme/theme";
 
@@ -29,7 +28,7 @@ const TaskOptionsScreen = (props) => {
   const currentList = useSelector((state) => state.tasks.currentList);
   const { taskTitle, taskDetails } = props.route.params;
   const dispatch = useDispatch();
-  const [details, setDetails] = useState();
+  const [details, setDetails] = React.useState();
 
   const deleteTaskHandler = () => {
     dispatch(removeTask(taskTitle));
@@ -47,7 +46,7 @@ const TaskOptionsScreen = (props) => {
     );
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const listener = navigation.addListener("beforeRemove", () => {
       if (details) {
         addDetailsHandler();
@@ -56,7 +55,7 @@ const TaskOptionsScreen = (props) => {
     return listener;
   }, [navigation, details]);
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (

@@ -130,6 +130,7 @@ const tasksSlice = createSlice({
       state.lists = state.lists.filter(
         (list) => list.name !== state.currentList
       );
+
       if (state.lists.length > 0) {
         state.currentList = state.lists[0].name;
       }
@@ -138,15 +139,21 @@ const tasksSlice = createSlice({
     },
   },
   extraReducers: {
-    [getAllDataAsyncStorage.pending]: (state, action) => {},
+    [getAllDataAsyncStorage.pending]: (state, action) => {
+      state.loading = true;
+    },
     [getAllDataAsyncStorage.fulfilled]: (state, action) => {
-      console.log("received!");
-      console.log(action.payload);
+      // console.log("received!");
+      // console.log(action.payload);
+
+      if (!action.payload) return;
+
       state.lists = action.payload;
+      state.loading = false;
     },
     [sendAllDataAsyncStorage.pending]: (state, action) => {},
     [sendAllDataAsyncStorage.fulfilled]: (state, action) => {
-      console.log("sent!");
+      // console.log("sent!");
       state.addedOrModified = false;
     },
   },

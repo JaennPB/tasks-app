@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 
 import * as Haptics from "expo-haptics";
-
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { useDispatch } from "react-redux";
+import CustomText from "./CustomText";
+
 import { removeTask } from "../../store/tasksSlice";
 
 import theme from "../../theme/theme";
 
-import CustomText from "./CustomText";
-
 const CompletedTaskItem = (props) => {
   const dispatch = useDispatch();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
   const showDeleteTaskIconHandler = () => {
     setIsDeleting(!isDeleting);
