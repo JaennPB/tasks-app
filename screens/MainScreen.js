@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
+
 import { useNavigation } from "@react-navigation/core";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Dashboard from "../components/Dashboard";
 import BottomControls from "../components/BottomControls";
@@ -11,7 +12,10 @@ import AddNewTaskModal from "../components/Modals/AddNewTaskModal";
 import AllListsModal from "../components/Modals/AllListsModal";
 import OptionsModal from "../components/Modals/OptionsModal";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  getAllDataAsyncStorage,
+  sendAllDataAsyncStorage,
+} from "../store/tasksSlice";
 
 import theme from "../theme/theme";
 
@@ -20,13 +24,24 @@ const MainScreen = () => {
   const allListsIsOpen = useSelector((state) => state.ui.allListsIsOpen);
   const optionsIsOpen = useSelector((state) => state.ui.optionsIsOpen);
 
+  const allLists = useSelector((state) => state.tasks.lists);
+  const addedOrModified = useSelector((state) => state.tasks.addedOrModified);
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     navigation.addListener("beforeRemove", (e) => {
       e.preventDefault();
     });
-  }, [navigation]);
+
+    if (!addedOrModified) {
+      dispatch(getAllDataAsyncStorage());
+    } else if (addedOrModified) {
+      console.log(allLists);
+      dispatch(sendAllDataAsyncStorage(allLists));
+    }
+  }, [navigation, addedOrModified]);
 
   return (
     <SafeAreaView style={styles.screen}>

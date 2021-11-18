@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "tasks-app",
+    "name": "Tasks",
     "slug": "tasks-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,6 +27,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Get your tasks done!"
   }
 }

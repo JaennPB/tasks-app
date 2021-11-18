@@ -18,6 +18,7 @@ const AddNewTaskModal = () => {
   const [details, setDetails] = useState();
 
   const isAddingDetails = useSelector((state) => state.ui.isAddingDetails);
+
   const allLists = useSelector((state) => state.tasks.lists);
   const currentList = useSelector((state) => state.tasks.currentList);
   const currentListObject = allLists.find((list) => list.name === currentList);
@@ -35,16 +36,19 @@ const AddNewTaskModal = () => {
   };
 
   const addNewTaskHandler = () => {
-    if (currentListObject.uncompleted.includes(task)) {
+    if (
+      currentListObject.uncompleted.find((item) => item.title === task)
+        ?.title === task
+    ) {
       Alert.alert("Task already exists", "Please add a different task!");
       return;
     } else if (!task) {
       Alert.alert("Empty", "Please type something.");
       return;
     } else {
-      closeModal();
       dispatch(addTask({ title: task, details: details }));
       dispatch(toggleIsAddingDetails(false));
+      closeModal();
     }
   };
 
@@ -73,7 +77,7 @@ const AddNewTaskModal = () => {
           />
         </View>
       )}
-      <ModalControls addTaskOnPress={addNewTaskHandler} />
+      <ModalControls onAddTaskOnPress={addNewTaskHandler} />
     </CustomModal>
   );
 };

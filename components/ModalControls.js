@@ -33,7 +33,10 @@ const ModalControlsContainer = (props) => {
             Cancel
           </CustomText>
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.addTaskOnPress} style={styles.button}>
+        <TouchableOpacity
+          onPress={props.onAddTaskOnPress}
+          style={styles.button}
+        >
           <CustomText color={theme.secondary} size={18}>
             Save
           </CustomText>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { useSelector } from "react-redux";
@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 import CustomText from "./UI/CustomText";
 import TaskItem from "./UI/TaskItem";
 import CompletedTaskItem from "./UI/CompletedTaskItem";
+import NoTasksOrLists from "./UI/NoTasksOrLists";
 
 import theme from "../theme/theme";
-import NoTasksOrLists from "./UI/NoTasksOrLists";
 
 const TasksContainer = () => {
   const allLists = useSelector((state) => state.tasks.lists);

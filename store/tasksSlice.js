@@ -10,6 +10,8 @@ const initialState = {
       completed: [],
     },
   ],
+  addedOrModified: false,
+  loading: false,
 };
 
 const currentListObjectFinder = (state) => {
@@ -24,9 +26,21 @@ export const getAllDataAsyncStorage = createAsyncThunk(
   async () => {
     try {
       const jsonData = await AsyncStorage.getItem("@allData");
-      return jsonData != null ? JSON.parse(jsonData) : null;
+      return jsonData !== null ? JSON.parse(jsonData) : null;
     } catch (error) {
-      // error
+      console.log("error receiving", error);
+    }
+  }
+);
+
+export const sendAllDataAsyncStorage = createAsyncThunk(
+  "tasks/sendAllDataAsyncStorage",
+  async (data) => {
+    try {
+      const jsonData = JSON.stringify(data);
+      await AsyncStorage.setItem("@allData", jsonData);
+    } catch (error) {
+      console.log("error sending", error);
     }
   }
 );
@@ -42,6 +56,8 @@ const tasksSlice = createSlice({
         title: action.payload.title,
         details: action.payload.details,
       });
+
+      state.addedOrModified = true;
     },
     completeTask: (state, action) => {
       const currentListObject = currentListObjectFinder(state);
@@ -53,6 +69,8 @@ const tasksSlice = createSlice({
       currentListObject.uncompleted = currentListObject.uncompleted.filter(
         (item) => item.title !== action.payload.title
       );
+
+      state.addedOrModified = true;
     },
     removeTask: (state, action) => {
       const currentListObject = currentListObjectFinder(state);
@@ -63,11 +81,15 @@ const tasksSlice = createSlice({
       currentListObject.completed = currentListObject.completed.filter(
         (item) => item.title !== action.payload
       );
+
+      state.addedOrModified = true;
     },
     removeAllTasks: (state, action) => {
       const currentListObject = currentListObjectFinder(state);
 
       currentListObject.completed = [];
+
+      state.addedOrModified = true;
     },
     addDetailsToCurrentTask: (state, action) => {
       const currentListObject = currentListObjectFinder(state);
@@ -76,6 +98,8 @@ const tasksSlice = createSlice({
         (item) => item.title === action.payload.taskTitle
       );
       currItem.details = action.payload.details;
+
+      state.addedOrModified = true;
     },
     addList: (state, action) => {
       state.lists = [
@@ -88,6 +112,8 @@ const tasksSlice = createSlice({
       ];
 
       state.currentList = action.payload;
+
+      state.addedOrModified = true;
     },
     switchList: (state, action) => {
       state.currentList = action.payload;
@@ -97,6 +123,8 @@ const tasksSlice = createSlice({
 
       currentListObject.name = action.payload;
       state.currentList = action.payload;
+
+      state.addedOrModified = true;
     },
     deleteList: (state, action) => {
       state.lists = state.lists.filter(
@@ -105,11 +133,21 @@ const tasksSlice = createSlice({
       if (state.lists.length > 0) {
         state.currentList = state.lists[0].name;
       }
+
+      state.addedOrModified = true;
     },
   },
   extraReducers: {
+    [getAllDataAsyncStorage.pending]: (state, action) => {},
     [getAllDataAsyncStorage.fulfilled]: (state, action) => {
-      // update store
+      console.log("received!");
+      console.log(action.payload);
+      state.lists = action.payload;
+    },
+    [sendAllDataAsyncStorage.pending]: (state, action) => {},
+    [sendAllDataAsyncStorage.fulfilled]: (state, action) => {
+      console.log("sent!");
+      state.addedOrModified = false;
     },
   },
 });
